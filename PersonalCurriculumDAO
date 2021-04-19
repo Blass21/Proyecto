@@ -1,0 +1,101 @@
+package businesslogic;
+
+import dataacces.Conection;
+import domain.PersonalCurriculum;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ *
+ * @author Javier Blas
+ */
+public class PersonalCurriculumDAO implements IPersonalCurriculumDAO{
+    
+    private final Conection connection = new Conection();
+
+
+    @Override
+    public List<PersonalCurriculum> getAllPersonalCurriculum() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public PersonalCurriculum getPersonalCurriculum(String name) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void consultPersonalCurriculum(PersonalCurriculum personalCurriculum) {
+        try {
+            connection.connect();
+        } catch (SQLException ex) {
+            Logger.getLogger(PersonalCurriculumDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         try {
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO `sgp-ca`.`personalCurriculum` (`fullName`, `dateOfBirth`, `curp`, `phoneNumber`, `institutionalMail`, `discipline`, `studyGrade`, `studyArea`, `typeOfTeaching`, `lgac`, `ies`, `prodepParticipation`, `positionCA`, `numberOfEvidences`, `directedProjects` ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            preparedStatement.setString(1, personalCurriculum.getFullName());
+            preparedStatement.setDate(2, (Date) personalCurriculum.getDateOfBirth());
+            preparedStatement.setString(3, personalCurriculum.getCurp());
+            preparedStatement.setString(4, personalCurriculum.getPhoneNumber());
+            preparedStatement.setString(5, personalCurriculum.getInstitutionalMail());
+            preparedStatement.setString(6, personalCurriculum.getDiscipline());
+            preparedStatement.setString(7, personalCurriculum.getStudyGrade());
+            preparedStatement.setString(8, personalCurriculum.getStudyArea());
+            preparedStatement.setString(9, personalCurriculum.getTypeOfTeaching());
+            preparedStatement.setString(10, personalCurriculum.getLgac());
+            preparedStatement.setString(11, personalCurriculum.getIes());
+            preparedStatement.setBoolean(12, personalCurriculum.isProdepParticipation());
+            preparedStatement.setString(13, personalCurriculum.getPositionCA());
+            preparedStatement.setInt(14, personalCurriculum.getNumberOfEvidences());
+            preparedStatement.setString(15, personalCurriculum.getDirectedProjects());
+            preparedStatement.executeUpdate();
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        } finally {
+            connection.disconnect();
+        }
+    }
+    
+     @Override
+    public PersonalCurriculum registerPersonalCurriculum(PersonalCurriculum personalCurriculum) {
+        try {
+            connection.connect();
+        } catch (SQLException ex) {
+            Logger.getLogger(PersonalCurriculumDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            String query = ("INSERT INTO personalCurriculum (fullNambe, dateOfBirth, curp, phoneNumber, institutionalMail, discipline, studyGrade, studyArea, typeOfTeaching, lgac, ies, prodepParticipation, positionCA, numberOfEvidences, directedProjects) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement preparedStatement = connection.getConnection().prepareStatement(query);
+            preparedStatement.setString(1, personalCurriculum.getFullName());
+            preparedStatement.setDate(2, (Date) personalCurriculum.getDateOfBirth());
+            preparedStatement.setString(3, personalCurriculum.getCurp());
+            preparedStatement.setString(4, personalCurriculum.getPhoneNumber());
+            preparedStatement.setString(5, personalCurriculum.getInstitutionalMail());
+            preparedStatement.setString(6, personalCurriculum.getDiscipline());
+            preparedStatement.setString(7, personalCurriculum.getStudyGrade());
+            preparedStatement.setString(8, personalCurriculum.getStudyArea());
+            preparedStatement.setString(9, personalCurriculum.getTypeOfTeaching());
+            preparedStatement.setString(10, personalCurriculum.getLgac());
+            preparedStatement.setString(11, personalCurriculum.getIes());
+            preparedStatement.setBoolean(12, personalCurriculum.isProdepParticipation());
+            preparedStatement.setString(13, personalCurriculum.getPositionCA());
+            preparedStatement.setInt(14, personalCurriculum.getNumberOfEvidences());
+            preparedStatement.setString(15, personalCurriculum.getDirectedProjects());
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        } finally {
+            connection.disconnect();
+        }
+        return personalCurriculum;
+    }
+
+    @Override
+    public void modifyPersonalCurriculum(PersonalCurriculum personalCurriculum) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+}
