@@ -1,0 +1,17 @@
+package businesslogic;
+
+import domain.PersonalCurriculum;
+import java.util.List;
+
+/**
+ *
+ * @author Javier Blas
+ */
+public interface IPersonalCurriculumDAO {
+    public List<PersonalCurriculum> getAllPersonalCurriculum();
+    public PersonalCurriculum getPersonalCurriculum(String name);
+    public void consultPersonalCurriculum (PersonalCurriculum personalCurriculum);
+    public PersonalCurriculum registerPersonalCurriculum (PersonalCurriculum personalCurriculum);
+    public void modifyPersonalCurriculum (PersonalCurriculum personalCurriculum);
+}
+
