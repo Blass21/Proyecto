@@ -1,0 +1,29 @@
+package tests;
+
+import businesslogic.PersonalCurriculumDAO;
+import domain.PersonalCurriculum;
+import java.sql.Date;
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
+
+/**
+ *
+ * @author Javier Blas
+ */
+public class PersonalCurriculumTest {
+    @Test
+    public void registerPersonalCurriculum(){
+
+        PersonalCurriculumDAO personalCurriculum = new PersonalCurriculumDAO();
+        PersonalCurriculum personalCurriculumResult;
+        Date personalCurriculumDate = new Date((1995-1900), (5-1), 8);
+
+        PersonalCurriculum personalCurriculumObject = new PersonalCurriculum("Antonio Domínguez García", personalCurriculumDate, "DOGA011207HVZMNRA08", "2288657690" , "zs19014049@estudiante.uv.mx", "Maestria", "Cuarto grado", "Innovación", "Completo", "Sí", "Sí", true, "Integrante", 3, "UV");
+        String fullNamePersonalCurriculumExpected = "Antonio Domínguez García";
+        personalCurriculumResult = personalCurriculum.registerPersonalCurriculum(personalCurriculumObject);
+        String personalCurriculumResultNew = personalCurriculumResult.getFullName();
+
+        assertEquals("Prueba...", fullNamePersonalCurriculumExpected, personalCurriculumResultNew);
+
+    }
+}
