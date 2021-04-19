@@ -1,0 +1,102 @@
+package businesslogic;
+
+import dataacces.Conection;
+import domain.GeneralCurriculum;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ *
+ * @author Javier Blas
+ */
+public class GeneralCurriculumDAO implements IGeneralCurriculumDAO{
+
+    private Conection connection;
+    
+    @Override
+    public List<GeneralCurriculum> getAllGeneralCurriculum() {
+        ArrayList<GeneralCurriculum> arrayListGeneralCurriculums = new ArrayList<>();
+        
+        try {
+            connection.connect();
+            String query = "SELECT KeyCode, title, registrationDate FROM generalCurriculum";
+            Statement statement = connection.getConnection().createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                //arrayListMembers.add(new Member(resultSet.getInt("keyCode"), resultSet.getTitle("String"), resultSet.getDate("registrationDate"))); 
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(GeneralCurriculumDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            connection.disconnect();
+        }
+        return arrayListGeneralCurriculums;
+    }
+
+    @Override
+    public GeneralCurriculum getGeneralCurriculum(String name) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void consultGeneralCurriculum(GeneralCurriculum generalCurriculum) {
+        try {
+            connection.connect();
+        } catch (SQLException ex) {
+            Logger.getLogger(GeneralCurriculumDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         try {
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO `sgp-ca`.`member` (`keyCode`, `title`, `dependencyInstitute`, `facultyOfTheInstitution`, `degreeOfConsolidation`, `numberOfParticipants`, `numberOfCollaborators`, `registrationDate`, `lgac`, `generalPurpose`, `mission`, `vision` ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            preparedStatement.setInt(1, generalCurriculum.getKeyCode());
+            preparedStatement.setString(2, generalCurriculum.getTitle());
+            preparedStatement.setString(3, generalCurriculum.getDependencyInstitute());
+            preparedStatement.setString(4, generalCurriculum.getFacultyOfTheInstitution());
+            preparedStatement.setString(5, generalCurriculum.getDegreeOfConsolidation());
+            preparedStatement.setInt(6, generalCurriculum.getNumberOfParticipants());
+            preparedStatement.setInt(7, generalCurriculum.getNumberOfCollaborators());
+            preparedStatement.setDate(8, (Date) generalCurriculum.getRegistrationDate());
+            preparedStatement.setString(9, generalCurriculum.getLgac());
+            preparedStatement.setString(10, generalCurriculum.getGeneralPurpose());
+            preparedStatement.setString(11, generalCurriculum.getMission());
+            preparedStatement.setString(12, generalCurriculum.getVision());
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        } finally {
+            connection.disconnect();
+        }
+    }
+
+    @Override
+    public void modifyGeneralCurriculum(GeneralCurriculum generalCurriculum) {
+         int result = 0;
+        try {
+            String query = "UPDATE generalCurriculum SET keyCode = ?, title = ?, dependencyInstitute = ?, facultyOfTheInstitution = ?, degreeOfConsolidation = ?, numberOfParticipants = ?, numberOfCollaborators = ?, registrationDate = ?, lgac = ?, generalPurpose = ?, mission = ?, vision = ? WHERE keyCode = ?";
+            PreparedStatement preparedStatement = connection.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1, generalCurriculum.getKeyCode());
+            preparedStatement.setString(2, generalCurriculum.getTitle());
+            preparedStatement.setString(3, generalCurriculum.getDependencyInstitute());
+            preparedStatement.setString(4, generalCurriculum.getFacultyOfTheInstitution());
+            preparedStatement.setString(5, generalCurriculum.getDegreeOfConsolidation());
+            preparedStatement.setInt(6, generalCurriculum.getNumberOfParticipants());
+            preparedStatement.setInt(7, generalCurriculum.getNumberOfCollaborators());
+            preparedStatement.setDate(8, (Date) generalCurriculum.getRegistrationDate());
+            preparedStatement.setString(9, generalCurriculum.getLgac());
+            preparedStatement.setString(10, generalCurriculum.getGeneralPurpose());
+            preparedStatement.setString(11, generalCurriculum.getMission());
+            preparedStatement.setString(12, generalCurriculum.getVision());
+            result = preparedStatement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(GeneralCurriculumDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            connection.disconnect();
+        }
+        
+    }
+}
