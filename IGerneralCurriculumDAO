@@ -1,0 +1,15 @@
+package businesslogic;
+
+import domain.GeneralCurriculum;
+import java.util.List;
+
+/**
+ *
+ * @author Javier Blas
+ */
+public interface IGeneralCurriculumDAO {
+    public List<GeneralCurriculum> getAllGeneralCurriculum();
+    public GeneralCurriculum getGeneralCurriculum(String name);
+    public void consultGeneralCurriculum (GeneralCurriculum resume);
+    public void modifyGeneralCurriculum (GeneralCurriculum resume);
+}
